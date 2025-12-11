@@ -6,11 +6,11 @@
 
 ## Author
 
-**Vighnesh Sairaman**
-MS. Biomedical Engineering
-Viterbi School of Engineering
-University of Southern California
-Los Angeles, CA, USA
+**Vighnesh Sairaman**  
+MS. Biomedical Engineering  
+Viterbi School of Engineering  
+University of Southern California  
+Los Angeles, CA, USA  
 sairaman@usc.edu
 
 ---
@@ -40,12 +40,14 @@ The system outperforms conventional approaches such as TOKEDA in accuracy, laten
 The proposed system comprises six major modules forming a closed-loop neuromodulatory control pipeline:
 
 ### 1. Multimodal Biosignal Acquisition
+
 - **EEG**: Alpha/beta bands for cortical state monitoring
 - **EMG**: Muscle activity detection
 - **IMU**: Motion kinematics tracking
 - Devices: OpenBCI, EMOTIV, surface electrodes
 
 ### 2. Signal Preprocessing
+
 | Signal | Processing Pipeline |
 |--------|---------------------|
 | EEG | Bandpass filtering → FFT → Power Spectral Density |
@@ -53,25 +55,29 @@ The proposed system comprises six major modules forming a closed-loop neuromodul
 | IMU | Derivative calculation for velocity/acceleration |
 
 ### 3. Feature Encoding
+
 - **1D CNN**: Short-range temporal abstraction
 - **Bidirectional LSTM**: Long-term dependency modeling
-- Output: Latent feature state vector s_t ∈ R^128
+- Output: Latent feature state vector sₜ ∈ ℝ¹²⁸
 
 ### 4. PPO Policy Network
+
 - **Actor Network**: Outputs continuous-valued stimulation parameters
 - **Critic Network**: Estimates value of current biosignal state
 - Online training driven by reward feedback
 
 ### 5. Neuromodulatory Output
+
 - **VNS Stimulator**: Modulates cortical activity via adjustable pulse trains
 - **SCS Stimulator**: Recruits spinal motor circuits using segmental stimulation
 - Safety controller for energy, current, and thermal limits
 
 ### 6. Reward Feedback Loop
+
 ```
-R_t = +1.0  (correct step detected)
-    = -0.5  (false positive generated)
-    = -0.1 × E_t  (energy penalty)
+Rₜ = +1.0      if correct step detected
+   = -0.5      if false positive generated
+   = -0.1 × Eₜ  energy penalty
 ```
 
 ---
@@ -79,18 +85,21 @@ R_t = +1.0  (correct step detected)
 ## Mathematical Formulations
 
 ### TKEO-Enhanced EMG
+
 ```
 Ψ[x(t)] = x²(t) - x(t-1) · x(t+1)
 ```
 
 ### PPO Clipped Objective
+
 ```
-L^CLIP(θ) = E_t[min(r_t(θ)Â_t, clip(r_t(θ), 1-ε, 1+ε)Â_t)]
+L_CLIP(θ) = 𝔼ₜ[min(rₜ(θ)Âₜ, clip(rₜ(θ), 1-ε, 1+ε)Âₜ)]
 ```
 
 ### Energy Estimation
+
 ```
-E_t = I² · R · t_pulse
+Eₜ = I² · R · t_pulse
 ```
 
 ---
@@ -192,6 +201,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-**Vighnesh Sairaman**
-Email: sairaman@usc.edu
+**Vighnesh Sairaman**  
+Email: sairaman@usc.edu  
 University of Southern California, Viterbi School of Engineering
